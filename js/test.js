@@ -179,7 +179,8 @@ $("#save").on("click",function(){
           { label: "睡眠", y:Math.round( localStorage.getItem("睡眠")/total*100)},
           { label: "仕事",   y:Math.round( localStorage.getItem("仕事")/total*100)},
           { label: "ジーズの課題",   y: Math.round(localStorage.getItem("ジーズの課題")/total*100)},
-          { label: "家族との食事",   y: Math.round(localStorage.getItem("入浴")/total*100)},
+          { label: "家族との食事",   y: Math.round(localStorage.getItem("家族との食事")/total*100)},
+          { label: "入浴",   y: Math.round(localStorage.getItem("入浴")/total*100)},
           { label: "読書",   y: Math.round(localStorage.getItem("読書")/total*100)},
       ]
       }
