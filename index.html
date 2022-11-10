@@ -34,16 +34,24 @@
     </select>
   </div>
   
-
-  <div class="btn">
-    <button id="start" class="st">START</button>
-    <button id="end" class="en">END</button>
-
-    <button id="save" class="sa">SAVE</button>
-    <button id="remove" class="re">CLEAR</button>
+  <div class="center">
+    <div class="btn_1">
+      <button id="start" class="st">START</button>
+      <button id="end" class="en">STOP</button>
+    </div>
   </div>
 
+  <p id="keisoku"></p>
 
+ 
+
+  <!-- 時間経過を示すアニメーション入れる -->
+  <!-- <div id="show_ela" class="show_elaspe"> -->
+  <div id="show_ela">
+    <!-- <span></span> -->
+  </div>
+
+  
   <div class="div__time">
     <div style="display: none;" id="overall_time"></div>
     <div id="overall_times"></div>
@@ -53,9 +61,16 @@
 
 <p id="time_show" class="time_show">0時間0分0秒</p>
 
+<p id="save_btn"></p>
+
 <!-- <div id="chart"></div> -->
 
+<div class="btn">
+  <button id="save" class="sa">SAVE</button>
+  <button id="remove" class="re">CLEAR</button>
+</div>
 
+<div class="rate">行動の割合を見てみる↓</div>
 
 
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>

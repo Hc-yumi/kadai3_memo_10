@@ -39,15 +39,31 @@ $("#start").on("click",function(){
   let start_st = 'はじめ';
   start_time = new Date().getTime() / 1000;
 
+  //ストップウォッチ機能
+  // runTimer();
+
   console.log(start_st);
   console.log(start_time);
   key = $('#item').val();
   console.log(key);
 
+  //アニメーションスタート
+  $("#show_ela").addClass('show_elaspe');
+
+  // $("#keisoku").addClass('keisoku');
+  $("#keisoku").text('時間計測中・・・終わったらSTOPをクリック！');
+
 
 })
 
 $("#end").on("click",function(){
+  //アニメーション終了と開始
+  $("#show_ela").removeClass('show_elaspe');
+  $("#keisoku").text('');
+  $("#save_btn").addClass('save_btn');
+  $("#save_btn").text('時間が確定したらSAVEボタンを押してね！');
+
+
   let end_st = 'おわり';
   let end_time = new Date().getTime() / 1000;
   let elapseTime = end_time - start_time;
@@ -79,7 +95,7 @@ $("#time_show").html(display_time);
 
 $("#save").on("click",function(){
   localStorage.setItem(key,time)
-    
+
 })
 
 $("#save").on("click",function(){

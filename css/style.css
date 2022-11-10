@@ -34,24 +34,81 @@
   cursor: pointer;
 }
 
+/* スタートとストップ */
+.center{
+
+  text-align: center;
+  /* margin: 0 auto; */
+
+}
 
 
-
-.btn button{
-  display: block;
-  /* justify-content: space-between; */
+.btn_1 button{
   align-items: center;
   position: relative;
   margin: 0 auto;
   padding: 1em 2em;
-  width: 300px;
-  color: #333;
+  width: 200px;
+  color: rgb(51, 51, 51);
   font-size: 18px;
   font-weight: 700;
   background-color: #ccc;
   border-radius: 50vh;
   transition: 0.3s;
   text-align: center;
+}
+
+.btn_1 button ::before{
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border: 2px solid #3d9ec8;
+  border-radius: 50vh;
+  transition: 0.2s;
+}
+
+.btn_1 button ::after{
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-top: 3px solid #333333;
+  border-right: 3px solid #333333;
+  transform: rotate(45deg);
+}
+
+.btn_1 button :hover::before{
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.btn_1 button :hover{
+  text-decoration: none;
+  background-color: #a0c4d3;
+}
+
+
+/* saveとclear */
+
+.btn button{
+  display: block;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* text-align: center; */
+  position: relative;
+  margin: 0 auto;
+  padding: 1em 2em;
+  /* width: 100px; */
+  /* color: #444; */
+  font-size: 18px;
+  font-weight: 700;
+  background-color: #FFE4E1;
+  border-radius: 50vh;
+  transition: 0.3s;
+  /* text-align: center; */
 }
 
 .btn button ::before{
@@ -86,10 +143,102 @@
   background-color: #a0c4d3;
 }
 
+
+/* 時間経過を示すボール */
+@keyframes move02 {
+  50% {
+    background-color: #ffcc00;
+  }
+  100% {
+    left: 100%;
+    background-color: #ff6600;
+  }
+}
+
+#show_ela {
+  position: relative;
+}
+.show_elaspe{
+  display: flex;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ff6600;
+  position: absolute;
+  /* margin: auto; */
+  text-align: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  
+  animation: move02 2s linear infinite alternate;
+}
+
+#keisoku{
+  padding: 2% 0 0 0;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+
+/* .keisoku{
+   -webkit-animation:blink 1.5s ease-in-out infinite alternate;
+   -moz-animation:blink 1.5s ease-in-out infinite alternate;
+    animation:blink 1.5s ease-in-out infinite alternate;
+  }
+  @-webkit-keyframes blink{
+      0% {opacity:0;}
+      100% {opacity:1;}
+  }
+  @-moz-keyframes blink{
+      0% {opacity:0;}
+      100% {opacity:1;}
+  }
+  @keyframes blink{
+      0% {opacity:0;}
+      100% {opacity:1;}
+  }  */
+
+.save_btn{
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  padding: 0 0 3% 0;
+}
+
+.save_btn{
+-webkit-animation:blink 1.5s ease-in-out infinite alternate;
+   -moz-animation:blink 1.5s ease-in-out infinite alternate;
+    animation:blink 1.5s ease-in-out infinite alternate;
+  }
+  @-webkit-keyframes blink{
+      0% {opacity:0;}
+      100% {opacity:1;}
+  }
+  @-moz-keyframes blink{
+      0% {opacity:0;}
+      100% {opacity:1;}
+  }
+  @keyframes blink{
+      0% {opacity:0;}
+      100% {opacity:1;}
+  }
+
+.rate{
+  padding: 7% 0 3% 0 ;
+  margin: auto;
+  text-align: center;
+  /* font-weight: bold; */
+  font-size: 1.2rem;
+}
+
+
 .time_show{
   padding: 5%;
   margin: auto;
   text-align: center;
+  font-weight: bold;
+  font-size: 1.8rem;
 }
 
 table{
