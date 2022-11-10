@@ -9,6 +9,27 @@
 
 // })
 
+setInterval(function(){
+  setInterval(function(){
+    let now = new Date();
+    let y = now.getFullYear();
+    let m = now.getMonth() + 1;
+    let d = now.getDate();
+    let w = now.getDay();
+    let wd = ['日', '月', '火', '水', '木', '金', '土'];
+    let h = now.getHours();
+    let mi = now.getMinutes();
+    let s = now.getSeconds();
+    // 逆から数える sliceで指定した順番の要素だけ取得する。下から2番目まで
+    let mm = ('0' + m).slice(-2);
+    let dd = ('0' + d).slice(-2);
+    let hh = ('0' + h).slice(-2);
+    let mmi = ('0' + mi).slice(-2);
+    let ss = ('0' + s).slice(-2);
+    $('#today').text(y + '年' + mm + '月' + dd + '日' + '(' + wd[w] + ')' +'  ' + hh + '時' + mmi + '分' + ss + '秒' );
+    }, 1000);
+    });
+
 
 
 let start_time = 0;
@@ -22,6 +43,8 @@ $("#start").on("click",function(){
   console.log(start_time);
   key = $('#item').val();
   console.log(key);
+
+
 })
 
 $("#end").on("click",function(){
@@ -67,15 +90,17 @@ $("#save").on("click",function(){
           </tr>
         `;
         $("#list").append(show_list);
+  // リロードのおまじない
+          location.reload()
 
 })
 
 
 
 }
+
     window.onload = function() {
     // ローカルストレージ内から呼び込み
-
 
      //localstorage内に保存してあるデータを配列の中に入れる
     key_array = [];
@@ -118,97 +143,77 @@ $("#save").on("click",function(){
       // 各割合の場所に上の割合を入れる 書き方合ってるか分からないけど、計算できた
 
       //canvasをつかって円グラフを作成
-    var options = {
-      title: {
-        // text: "1日の過ごし方を見てみよう！"
-      },
-      data: [{
-          type: "pie",
-          startAngle: 45,
-          showInLegend: "true",
-          legendText: "{label}",
-          indexLabel: "{label} ({y})",
-          yValueFormatString:"#,##0.#"%"",
-          dataPoints: [
-            { label: "すいみん", y: localStorage.getItem("睡眠")/total*100},
-            { label: "しごと", y:localStorage.getItem("仕事")/total*100 },
-            { label: "ジーズのかだい", y: localStorage.getItem("ジーズの課題")/total*100 },
-            { label: "しょくじ", y: localStorage.getItem("家族との食事")/total*100 },
-            { label: "おふろ", y: localStorage.getItem("入浴")/total*100 },
-            { label: "どくしょ", y: localStorage.getItem("読書")/total*100 },
+    // var options = {
+    //   title: {
+    //     // text: "1日の過ごし方を見てみよう！"
+    //   },
+    //   data: [{
+    //       type: "line",
+    //       startAngle: 45,
+    //       showInLegend: "true",
+    //       legendText: "{label}",
+    //       indexLabel: "{label} ({y})",
+    //       yValueFormatString:"#,##0.#"%"",
+    //       dataPoints: [
+            // { label: "すいみん", y: localStorage.getItem("睡眠")/total*100},
+            // { label: "しごと", y:localStorage.getItem("仕事")/total*100 },
+            // { label: "ジーズのかだい", y: localStorage.getItem("ジーズの課題")/total*100 },
+            // { label: "しょくじ", y: localStorage.getItem("家族との食事")/total*100 },
+            // { label: "おふろ", y: localStorage.getItem("入浴")/total*100 },
+            // { label: "どくしょ", y: localStorage.getItem("読書")/total*100 },
 
-          ]
-      }]
-    };
-    $("#chartContainer").CanvasJSChart(options);
+    //       ]
+    //   }]
+    // };
+
+
+    
+    // $("#chartContainer").CanvasJSChart(options);
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+      theme: "theme4",
+      animationEnabled: true,
+      startAngle: 270,
+      data: [
+        {
+      // type: "doughnut",
+      type: "pie",
+      startAngle: 270,
+      legendText: "{label}",
+      indexLabel: "{label} ({y}%)",
+      yValueFormatString:"#,##0.#"%"",
+      dataPoints: [
+          // { label: "初期値", y: 100},
+          { label: "睡眠", y:Math.round( localStorage.getItem("睡眠")/total*100)},
+          { label: "仕事",   y:Math.round( localStorage.getItem("仕事")/total*100)},
+          { label: "ジーズの課題",   y: Math.round(localStorage.getItem("ジーズの課題")/total*100)},
+          { label: "家族との食事",   y: Math.round(localStorage.getItem("入浴")/total*100)},
+          { label: "読書",   y: Math.round(localStorage.getItem("読書")/total*100)},
+      ]
+      }
+        ]
+      });
+      chart.render();
 
     }
 
-    
+  //   window.onload = function () {
+  //     var chart = new CanvasJS.Chart("chartContainer", {
+  //     theme: "theme4",
+  //     animationEnabled: true,
+  //     startAngle: 270,
+  //     data: [
+  //       {
+  //     type: "doughnut",
+  //     startAngle: 270,
+  //     dataPoints: [
+  //         { label: "男性", y: 80,},
+  //         { label: "女性", y: 13},
+  //     ]
+  //     }
+  //       ]
+  //     });
+  //     chart.render();
+  // }
 
 
-
-
-
-// $(document).ready(function(){
-//   var data = [
-//     ['Heavy Industry', 12],['Retail', 9], ['Light Industry', 14],
-//     ['Out of home', 16],['Commuting', 7], ['Orientation', 9]
-//   ];
-//   var plot1 = jQuery.jqplot ('chart1', [data],
-//     {
-//       seriesDefaults: {
-//         // Make this a pie chart.
-//         renderer: jQuery.jqplot.PieRenderer,
-//         rendererOptions: {
-//           // Put data labels on the pie slices.
-//           // By default, labels show the percentage of the slice.
-//           showDataLabels: true
-//         }
-//       },
-//       legend: { show:true, location: 'e' }
-//     }
-//   );
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-// if (seconds < a){
-//     alert("true");
-// } else{
-//     alert("false");
-// }
-
-// if (seconds < b){
-//     alert("true");
-// } else{
-//     alert("false");
-// }
-
-// if (seconds < c){
-//     alert("true");
-// } else{
-//     alert("false");
-// }
-
-
-
-
-// var object = {value: "value", timestamp: new Date().getTime()}
-// localStorage.setItem("key", JSON.stringify(object));
-
-
-// var object = JSON.parse(localStorage.getItem("key")),
-//     dateString = object.timestamp,
-//     now = new Date().getTime().toString();
-
-// compareTime(dateString, now); //to implement
