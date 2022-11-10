@@ -1,13 +1,20 @@
-// ローカルストレージへ保存
-// $("#save").on('click',function(){
-//   let aa = $('#a').val();
-//   let bb = $('#b').val();
-//   console.log(aa);
-//   console.log(bb);
+// 今回やりたいこと！//
+//localstorageの使用（must）
+//携帯で見れる大きさ
+//配列、for文、if文の取り入れ
+//swich case関数の取り入れ
+//非同期処理の取り入れ
+//6種の時間カウント
+//色を選んでlocalstorageする
+//上記の選んだ色をそのまま最後の円グラフの色へ反映させる
+//1日の終わりにかかった時間の割合を出す
+//かかった時間の割合を円グラフで出す
+// 画面遷移はスクロールではなく、同じ場所からシュッと変わる
+//locastorageに画像を保存する
+//最後に並べる
+//一週間分記録できるようにする
 
-//   localStorage.setItem(aa,bb);
 
-// })
 
 setInterval(function(){
   setInterval(function(){
@@ -39,7 +46,7 @@ $("#start").on("click",function(){
   let start_st = 'はじめ';
   start_time = new Date().getTime() / 1000;
 
-  //ストップウォッチ機能
+  //ストップウォッチ機能 今回は諦め・・
   // runTimer();
 
   console.log(start_st);
@@ -50,7 +57,6 @@ $("#start").on("click",function(){
   //アニメーションスタート
   $("#show_ela").addClass('show_elaspe');
 
-  // $("#keisoku").addClass('keisoku');
   $("#keisoku").text('時間計測中・・・終わったらSTOPをクリック！');
 
 
@@ -107,11 +113,9 @@ $("#save").on("click",function(){
         `;
         $("#list").append(show_list);
   // リロードのおまじない
-          location.reload()
+          location.reload() //リロードしないとグラフが上手く反映されない・・
 
 })
-
-
 
 }
 
@@ -157,34 +161,6 @@ $("#save").on("click",function(){
 
 
       // 各割合の場所に上の割合を入れる 書き方合ってるか分からないけど、計算できた
-
-      //canvasをつかって円グラフを作成
-    // var options = {
-    //   title: {
-    //     // text: "1日の過ごし方を見てみよう！"
-    //   },
-    //   data: [{
-    //       type: "line",
-    //       startAngle: 45,
-    //       showInLegend: "true",
-    //       legendText: "{label}",
-    //       indexLabel: "{label} ({y})",
-    //       yValueFormatString:"#,##0.#"%"",
-    //       dataPoints: [
-            // { label: "すいみん", y: localStorage.getItem("睡眠")/total*100},
-            // { label: "しごと", y:localStorage.getItem("仕事")/total*100 },
-            // { label: "ジーズのかだい", y: localStorage.getItem("ジーズの課題")/total*100 },
-            // { label: "しょくじ", y: localStorage.getItem("家族との食事")/total*100 },
-            // { label: "おふろ", y: localStorage.getItem("入浴")/total*100 },
-            // { label: "どくしょ", y: localStorage.getItem("読書")/total*100 },
-
-    //       ]
-    //   }]
-    // };
-
-
-    
-    // $("#chartContainer").CanvasJSChart(options);
 
     var chart = new CanvasJS.Chart("chartContainer", {
       theme: "theme4",
