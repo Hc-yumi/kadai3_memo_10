@@ -32,9 +32,10 @@ $("#end").on("click",function(){
   console.log(end_time);
   // reset
   start_time = 0;
-  display_time = postProcess(elapseTime, key)
+  display_time = postProcess(elapseTime, key) //下の関数をここへ渡す
 })
 
+// 引数を使った関数を使用 keyはグローバル変数にしたので使用可能 timeは以下の関数で使用するための引数
 function postProcess(time, key){
 
   let hour = Math.floor(time /3600);
@@ -50,71 +51,101 @@ function postProcess(time, key){
 
   const display_time = `${minutes}時間${minutes}分${seconds}秒`
 
+  //時間を表記する
 $("#time_show").html(display_time);
 
 $("#save").on("click",function(){
   localStorage.setItem(key,time)
+    
 })
+
+$("#save").on("click",function(){
+  let show_list = `
+          <tr>
+              <th>${key}</th>
+              <td>${minutes}時間${minutes}分${seconds}秒</td>
+          </tr>
+        `;
+        $("#list").append(show_list);
+
+})
+
+
 
 }
     window.onload = function() {
     // ローカルストレージ内から呼び込み
 
+
+     //localstorage内に保存してあるデータを配列の中に入れる
     key_array = [];
     value_array = [];
 
     for(let i = 0; i < localStorage.length; i++){
       let taken_key = localStorage.key(i);
       let value = localStorage.getItem(taken_key);
-      
+      //上でつくった配列に入れる
       key_array.push(taken_key);
-      value_array.push(parseFloat(value));
+      value_array.push(parseFloat(value)); //文字列で保存されてる値を数値として認識させる
     }
+
+
     let result = value_array;
+    // .reduceは配列の全ての要素の和を出す！ value_arrayに入っている中身を合計
     let total = result.reduce(function(sum, element){
-        return sum + element;
+        return sum + element; //サイトにはこの記載あり。
       }, 0);
 
-      console.log("test");
+      console.log("下で合計値取れてるか確認"); //確認用
+      console.log(total);  // total取れていることを確認
+      console.log("上で合計値取れてるか確認"); // 確認用
 
-      console.log(total);
-
-      console.log("test");
 
       for (let i = 0; i < value_array.length; i++){
         // console.log(value_array[i]/total);
-        value_array[i] = value_array[i]/total;
-        console.log(value_array[i]);
-
+        value_array[i] = value_array[i]/total; //例）寝た時間／total時間＝割合出したい 配列に上書き
+        console.log(value_array[i]*100); //各項目の割合を出した これをそのままグラフに読み込ませたいけど・・どれがどの割合なのか紐づける方法が分からない。。
       }
 
-      // 各割合の場所に上の割合を入れる
+      $("#remove").on("click",function(){
+        localStorage.clear();
+      
+        // これだけだとhtmlが残ってしまうのでそれも削除！
+        $("#list").empty();
+      });
 
+
+      // 各割合の場所に上の割合を入れる 書き方合ってるか分からないけど、計算できた
+
+      //canvasをつかって円グラフを作成
     var options = {
       title: {
-        text: "Website Traffic Source"
+        // text: "1日の過ごし方を見てみよう！"
       },
       data: [{
           type: "pie",
           startAngle: 45,
           showInLegend: "true",
-          // legendText: "{label}",
+          legendText: "{label}",
           indexLabel: "{label} ({y})",
           yValueFormatString:"#,##0.#"%"",
           dataPoints: [
-            { label: "すいみん", y: localStorage.getItem("睡眠") },
-            { label: "しごと", y: 31 },
-            { label: "ジーズのかだい", y: 7 },
-            { label: "しょくじ", y: 7 },
-            { label: "おふろ", y: 6 },
-            { label: "どくしょ", y: 10 },
-            
+            { label: "すいみん", y: localStorage.getItem("睡眠")/total*100},
+            { label: "しごと", y:localStorage.getItem("仕事")/total*100 },
+            { label: "ジーズのかだい", y: localStorage.getItem("ジーズの課題")/total*100 },
+            { label: "しょくじ", y: localStorage.getItem("家族との食事")/total*100 },
+            { label: "おふろ", y: localStorage.getItem("入浴")/total*100 },
+            { label: "どくしょ", y: localStorage.getItem("読書")/total*100 },
+
           ]
       }]
     };
     $("#chartContainer").CanvasJSChart(options);
-    
+
     }
+
+    
+
 
 
 
